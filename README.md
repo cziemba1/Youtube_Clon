@@ -8,3 +8,4 @@ Try to built with Modern JavaScript E6 sintax
 
 - NodeJs/Express
 - Babel
+- Pug templates

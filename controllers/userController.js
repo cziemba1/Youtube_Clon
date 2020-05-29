@@ -25,11 +25,11 @@ export const getLogin = (req, res) => {
 };
 
 export const postLogin = (req, res) => {
-  res.render("home", { pageTitle: "Log in" });
+  res.redirect(routes.home);
 };
 
-export const logout = (req, res) =>
-  res.render("logout", { pageTitle: "Logout" });
+/*------LOG OUT Controller------*/
+export const logout = (req, res) => res.redirect(routes.home);
 
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "Change Password" });

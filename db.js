@@ -1,15 +1,22 @@
-export const videosAll = [
-  {
-    id: 23432,
-    title: "Video Awesome",
-    description: "This is awesome",
-    views: 24,
-    videoFile:
-      "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-    creator: {
-      id: 121212,
-      name: "Claudia",
-      email: "clau@gmail.com",
-    },
-  },
-];
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+});
+
+const db = mongoose.connection;
+
+/*------Handle DB connection functions------*/
+const handleOpen = () => {
+  console.log("Connected to DB");
+};
+const handleError = () => {
+  console.log("Error on DB connection");
+};
+
+/*------DB connection------*/
+db.once("open", handleOpen);
+db.on("error", handleError);

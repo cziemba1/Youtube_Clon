@@ -1,4 +1,4 @@
-import { videosAll } from "../db";
+import "../db";
 import routes from "../routes";
 
 /*------HOME Controller------*/

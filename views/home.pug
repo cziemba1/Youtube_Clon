@@ -6,5 +6,6 @@ block content
         each video in videosAll
             +videoBlock({
                 title: video.title,
-                description: video.description
+                views: video.views,
+                videoFile: video.videoFile
             })

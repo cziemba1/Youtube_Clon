@@ -1,9 +1,16 @@
 import "../db";
+import Video from "../models/Video";
 import routes from "../routes";
 
 /*------HOME Controller------*/
-export const home = (req, res) => {
-  res.render("home", { pageTitle: "Home", videosAll });
+export const home = async (req, res) => {
+  try {
+    const videosAll = await Video.find({});
+    res.render("home", { pageTitle: "Home", videosAll });
+  } catch (error) {
+    console.log(error);
+    res.render("home", { pageTitle: "Home", videosAll: [] });
+  }
 };
 
 /*------SEARCH Controller------*/

@@ -2,6 +2,9 @@ import "./db";
 import app from "./app";
 import "./models/Video";
 
+import "./models/Comment";
+import "./models/Video";
+
 // Protect info
 import dotenv from "dotenv";
 dotenv.config();

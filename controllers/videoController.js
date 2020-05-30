@@ -5,11 +5,11 @@ import routes from "../routes";
 /*------HOME Controller------*/
 export const home = async (req, res) => {
   try {
-    const videosAll = await Video.find({});
-    res.render("home", { pageTitle: "Home", videosAll });
+    const videos = await Video.find({});
+    res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
-    res.render("home", { pageTitle: "Home", videosAll: [] });
+    res.render("home", { pageTitle: "Home", videos: [] });
   }
 };
 
@@ -30,12 +30,19 @@ export const getupload = (req, res) => {
   res.render("upload", { pageTitle: "Upload" });
 };
 
-export const postUpload = (req, res) => {
+export const postUpload = async (req, res) => {
   const {
-    body: { file, title, description },
+    body: { title, description },
+    file: { path },
   } = req;
-  // TO DO: Upload and save videos
-  res.redirect(routes.videoDet(23432));
+  const newVideo = await Video.create({
+    fileUrl: path,
+    // fileUrl: req.file.path.replace(/\\/g, "/"),
+    title,
+    description,
+  });
+  console.log(newVideo);
+  res.redirect(routes.videoDet(newVideo.id));
 };
 
 export const videoDet = (req, res) =>

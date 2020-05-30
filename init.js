@@ -1,13 +1,12 @@
 import "./db";
+// Protect info
+import dotenv from "dotenv";
 import app from "./app";
-import "./models/Video";
+
+dotenv.config();
 
 import "./models/Comment";
 import "./models/Video";
-
-// Protect info
-import dotenv from "dotenv";
-dotenv.config();
 
 /*------ Start application------*/
 const handleListening = () => {

@@ -36,15 +36,14 @@ export const postUpload = async (req, res) => {
     file: { path },
   } = req;
   const newVideo = await Video.create({
-    fileUrl: path,
-    // fileUrl: req.file.path.replace(/\\/g, "/"),
+    fileUrl: req.file.path.replace(/\\/g, "/"),
     title,
     description,
   });
   console.log(newVideo);
   res.redirect(routes.videoDet(newVideo.id));
 };
-
+/*------DETAILS VIDEO Controller------*/
 export const videoDet = async (req, res) => {
   const {
     params: { id },
@@ -57,10 +56,32 @@ export const videoDet = async (req, res) => {
     res.redirect(routes.home);
   }
 };
+/*------EDIT VIDEOS Controller------*/
+export const getEditVideo = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
+};
+export const postEditVideo = async (req, res) => {
+  const {
+    params: { id },
+    body: { title, description },
+  } = req;
+  try {
+    await Video.findOneAndUpdate({ _id: id }, { title, description });
+    res.redirect(routes.videoDet(id));
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
+};
 
-export const getEditVideo = (req, res) =>
-  res.render("editVideo", { pageTitle: "Edit Video" });
-
-export const postEditVideo = (req, res) => {};
 export const deleteVideo = (req, res) =>
   res.render("deleteVideo", { pageTitle: "Delete Video" });
